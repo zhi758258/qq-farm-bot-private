@@ -62,6 +62,7 @@ const {
 const { registerAdminProxyRoutes } = require("./admin-proxy-routes");
 const { registerAdminPublicInfoRoutes } = require("./admin-public-info-routes");
 const { registerAdminQrLoginRoutes } = require("./admin-qr-login-routes");
+const { registerAdminNapCatRoutes } = require("./admin-napcat-routes");
 const { createAdminRouteHelpers } = require("./admin-route-helpers");
 const { registerAdminSettingsRoutes } = require("./admin-settings-routes");
 const { registerAdminShopRoutes } = require("./admin-shop-routes");
@@ -87,6 +88,13 @@ const PUBLIC_API_PATHS = new Set([
   "/changelog",
   "/announcement",
   "/health",
+  "/qr/napcat-login",
+  "/qr/napcat-refresh",
+  "/qr/napcat-poll",
+  "/qr/napcat-image",
+  "/qr/napcat-status",
+  "/qr/napcat-release",
+  "/qr/napcat-reclaim",
 ]);
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const ONE_MINUTE_MS = 60 * 1000;
@@ -608,6 +616,7 @@ function startAdminServer(dataProvider) {
     updateRuntimeConfig,
   });
   registerAdminQrLoginRoutes({ app });
+  registerAdminNapCatRoutes({ app, provider, store });
   registerAdminProxyRoutes({ app, logger: adminLogger });
   registerSpaFallback(app, webDist);
 
